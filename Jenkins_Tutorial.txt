@@ -113,4 +113,41 @@ Jenkins:
                     - "stage" and "steps"
                         (checkout/clean workspace/build/test/deploy)
                 
+    Replay
+        - if you want to check something in jenkinsfile but don't want again commit
+         and run the build.
+         --> go to your previous build
+         --> open #1
+         --> go to replay
+         add below lines and check in replay
+            script{
+                
+            }
+    
+    Restart from stage
+        - drop down on last build
+            #1 ^
+        - restart from stage
+        - select which stage you want to change
+        - it will skip earlier stages
+    
+    Automate build trigger
+        -- 2 ways to trigger build
+            -> Push Notification : Version control notifies jenkins on new commit
+                (more efficient)
+            -> Polling : Jenkins polls in regular intervals
+        -> Install jenkins plugin based on your version control system
+        -> configure Repository Server Hostname
+        -> and Access Token or Credential
 
+        Manage Jenkins -> configuration settings
+
+        similary in github --> settings --> integration
+        --> mention jenkins webhook url generated from jenkins
+
+        To generate webhook -->
+            --> github --> advanced 
+            --> check specify webhook
+            --> it will get generated like below
+            "http://localhost:8080/github-webhook/"
+            it listens to code change 
