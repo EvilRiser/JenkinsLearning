@@ -1,0 +1,82 @@
+
+Jenkins:
+==============
+
+ --> Jenkins container setup
+ --> Create multibranch pipeline with git repo
+ --> Types of credential
+ --> Jenkinsfile
+
+ 1. Run Jenkins in Docker container
+    -- find the jenkins image from dockerhub
+    -- use from jenkins/jenkins as official image has been depricated 
+     $ docker run -p 8080:8080 -p 50000:50000 -d -v jenkins_home:/var/jenkins_home jenkins/jenkins:lts
+    Docker run options:
+        - Expose port 8080 --> by default run in this port.
+        - Expose port 50000 --> this is where master/slave communicate
+        - run in detached mode --> run container in background
+        - bind named volume --> persists data of jenkins
+    -- $ docker logs <img_id>--> to get the uname pwd
+                                5e1b33dc3e9440fcb363491e96567c82 
+    -- go to localhost:8080
+    -- paste the pwd
+    --once done suggested installation create admin user
+        -- jenkins-user
+        -- ss1234
+        -- ss1234
+        -- jenkins
+        -- shaurabh.saha@gmail.com
+        -- http://localhost:8080/
+    
+    -- create new item 
+        - free style project
+    Types of jenkins Project:
+    - Freestyle                 - Pipeline                  - Multibranch Pipeline
+     simple,single tasks        whole delivery cycle            like pipeline
+     eg: run tests              eg:test|build|..              for multiple branch
+                                    for a single
+                                    branch
+        - manage jenkins: add/install/uninstall all plugins
+                            configure plugins
+ 2. create new item
+    - my-pipeline -> multibranch
+    - git -> git url -> branch by regx(java regx)
+        -> from Jenkinsfile
+    Credentials:
+    -> Manage Jenkins -> Credentials -> System -> Global credentials (unrestricted)
+        --> Add credentials
+            - Credentials Scope:
+                -- System --> Only available on jenkins server 
+                            NOT for Jenkins job
+                -- Global --> Everywhere accessible(all the build jobs/pipeline)
+            - Type of pwd:
+                -- username & pwd
+                -- certificate
+                -- secret file
+                -- ssh username with pvt key
+                -- secret text
+            - username: - global
+            - pwd: - ss1234
+            - id: - global (how you will identify)
+    Create 2 credentials: 1.global 2.system
+    --> Now in your pipeline there is another credential, its scope is proj
+
+    Proj Credentials:
+      - Dashboard -> my-pipeline -> Credentials -> Folder -
+            -> Global credentials (unrestricted)
+      - Add Credentials
+            kind: uname & pwd
+            uname: my-pipeline
+            pwd: ss1234
+            id: my-pipeline
+    ** system credentials are not available in your proj now.
+    - Add your git cred in pipeline cred and add that in git cred.
+ 
+ 3. Discover Branches
+        - Branch sources:
+           - Discover Branch: Filter by name(with regx)
+            - dev|master|feature
+            - ^dev|master|feature.*$
+                --> check any character name feature at any no of time.
+    
+ 4/
