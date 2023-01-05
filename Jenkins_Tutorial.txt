@@ -79,4 +79,38 @@ Jenkins:
             - ^dev|master|feature.*$
                 --> check any character name feature at any no of time.
     
- 4/
+ 4. Create Jenkinsfile
+    - Pipeline Syntax
+    - Replay
+    - Restart from stage
+        '''
+                pipeline{
+                    agent any
+                    stages{
+                        stage("build"){
+                            steps{
+
+                            }
+                        }
+                    }
+                }
+        '''
+    Pipeline syntax:
+    - Scripted
+        --> first syntax
+        --> groovy engine
+        --> advanced scripting capabilities, high flexibility
+        --> difficult to start
+
+    - Declarative
+        --> recent addition
+        --> easier to get started, but not that powerful
+        --> pre defind structure(above code)
+            -- Required fields
+                - "pipeline" must be top level
+                - "agent" - where to execute
+                - "stages" - where the "work" happens
+                    - "stage" and "steps"
+                        (checkout/clean workspace/build/test/deploy)
+                
+
